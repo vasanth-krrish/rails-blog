@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Blog</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    <section class="hero is-primary is-medium">
+      <!-- Hero head: will stick at the top -->
+      <div class="hero-head">
+        <nav class="navbar">
+          <div class="container">
+            <div class="navbar-brand">
+              <a class="navbar-item" href="<%= root_path %>">
+                <strong>MyBlog</strong>
+              </a>
+              <span class="navbar-burger burger" data-target="navbarMenuHeroA">
+                <span></span>
+                <span></span>
+                <span></span>
+              </span>
+            </div>
+            <div id="navbarMenuHeroA" class="navbar-menu">
+              <div class="navbar-end">
+                <% if current_page?(new_post_path) %>
+                  <a class="navbar-item" href="<%= root_path %>">
+                    Home
+                  </a>
+                  <a class="navbar-item is-active" href="<%= new_post_path %>">
+                    Create Post
+                  </a>
+                <% elsif current_page?(posts_path) %>
+                  <a class="navbar-item is-active" href="<%= root_path %>">
+                    Home
+                  </a>
+                  <a class="navbar-item" href="<%= new_post_path %>">
+                    Create Post
+                  </a>
+                <% else %>
+                  <a class="navbar-item" href="<%= root_path %>">
+                    Home
+                  </a>
+                  <a class="navbar-item" href="<%= new_post_path %>">
+                    Create Post
+                  </a>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        </nav>
+      </div>
+
+      <!-- Hero content: will be in the middle -->
+      <div class="hero-body">
+        <div class="container has-text-centered">
+          <h1 class="title">
+            <%= yield :page_title %>
+          </h1>
+        </div>
+      </div>
+    </section>
+    <%= yield %>
+  </body>
+</html>
