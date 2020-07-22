@@ -7,55 +7,58 @@
 
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
-  </head>
+    <script type="text/javascript">
+      document.addEventListener('DOMContentLoaded', () => {
 
+        // Get all "navbar-burger" elements
+        const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+
+        // Check if there are any navbar burgers
+        if ($navbarBurgers.length > 0) {
+
+          // Add a click event on each of them
+          $navbarBurgers.forEach( el => {
+            el.addEventListener('click', () => {
+
+              // Get the target from the "data-target" attribute
+              const target = el.dataset.target;
+              const $target = document.getElementById(target);
+
+              // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
+              el.classList.toggle('is-active');
+              $target.classList.toggle('is-active');
+
+            });
+          });
+        }
+
+      });
+    </script>
+  </head>
   <body>
-    <section class="hero is-primary is-medium">
-      <!-- Hero head: will stick at the top -->
+
+    <section  class="hero is-primary is-medium">
       <div class="hero-head">
         <nav class="navbar">
           <div class="container">
             <div class="navbar-brand">
-              <a class="navbar-item" href="<%= root_path %>">
-                <strong>MyBlog</strong>
-              </a>
+              <div class="navbar-item">
+                <span class="is-size-4 has-text-weight-semibold is-family-monospace" style="color:white;">MyBlog</span>
+              </div>
               <span class="navbar-burger burger" data-target="navbarMenuHeroA">
-                <span></span>
                 <span></span>
                 <span></span>
               </span>
             </div>
-            <div id="navbarMenuHeroA" class="navbar-menu">
+            <div class="navbar-menu" id="navbarMenuHeroA">
               <div class="navbar-end">
-                <% if current_page?(new_post_path) %>
-                  <a class="navbar-item" href="<%= root_path %>">
-                    Home
-                  </a>
-                  <a class="navbar-item is-active" href="<%= new_post_path %>">
-                    Create Post
-                  </a>
-                <% elsif current_page?(posts_path) %>
-                  <a class="navbar-item is-active" href="<%= root_path %>">
-                    Home
-                  </a>
-                  <a class="navbar-item" href="<%= new_post_path %>">
-                    Create Post
-                  </a>
-                <% else %>
-                  <a class="navbar-item" href="<%= root_path %>">
-                    Home
-                  </a>
-                  <a class="navbar-item" href="<%= new_post_path %>">
-                    Create Post
-                  </a>
-                <% end %>
+                <a href="/" class="navbar-item">Home</a>
+                <a href="/posts/new" class="navbar-item">Create Post</a>
               </div>
             </div>
           </div>
         </nav>
       </div>
-
-      <!-- Hero content: will be in the middle -->
       <div class="hero-body">
         <div class="container has-text-centered">
           <h1 class="title">
@@ -64,6 +67,7 @@
         </div>
       </div>
     </section>
+
     <%= yield %>
   </body>
 </html>
