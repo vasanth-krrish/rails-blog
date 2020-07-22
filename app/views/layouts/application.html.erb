@@ -7,66 +7,73 @@
 
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
-    <script type="text/javascript">
-      document.addEventListener('DOMContentLoaded', () => {
+    <style media="screen">
+      /* We don't need checkbox to be displayed in order for it to work */
+      .toggler {
+        display: none;
+      }
 
-        // Get all "navbar-burger" elements
-        const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+      /* Below are all the functionalities */
 
-        // Check if there are any navbar burgers
-        if ($navbarBurgers.length > 0) {
+      /* Hamburger changes to X when toggler is checked */
+      .navbar .toggler:checked + .navbar-brand .burger span:nth-child(1) {
+        -webkit-transform: translateY(5px) rotate(45deg);
+        transform: translateY(5px) rotate(45deg);
+      }
+      .navbar .toggler:checked + .navbar-brand .burger span:nth-child(2) {
+        opacity: 0;
+      }
+      .navbar .toggler:checked + .navbar-brand .burger span:nth-child(3) {
+        -webkit-transform: translateY(-5px) rotate(-45deg);
+        transform: translateY(-5px) rotate(-45deg);
+      }
 
-          // Add a click event on each of them
-          $navbarBurgers.forEach( el => {
-            el.addEventListener('click', () => {
-
-              // Get the target from the "data-target" attribute
-              const target = el.dataset.target;
-              const $target = document.getElementById(target);
-
-              // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
-              el.classList.toggle('is-active');
-              $target.classList.toggle('is-active');
-
-            });
-          });
+      /*  Displays menu when toggler is checked only on mobile/tablet */
+      @media screen and (max-width: 1024px) {
+        .navbar .toggler:checked ~ .navbar-menu {
+          display: block;
         }
-
-      });
-    </script>
+        /* We don't want menu to be displayed on mobile by default */
+        .navbar-menu {
+          display: none;
+        }
+      }
+    </style>
   </head>
   <body>
+    <!-- code I used in this example made by https://github.com/hanscees -->
 
-    <section  class="hero is-primary is-medium">
-      <div class="hero-head">
-        <nav class="navbar">
-          <div class="container">
-            <div class="navbar-brand">
-              <div class="navbar-item">
-                <span class="is-size-4 has-text-weight-semibold is-family-monospace" style="color:white;">MyBlog</span>
-              </div>
-              <span class="navbar-burger burger" data-target="navbarMenuHeroA">
-                <span></span>
-                <span></span>
-              </span>
+      <section class="hero is-info is-medium">
+        <div class="hero-head">
+          <nav class="navbar" role="navigation" aria-label="main navigation">
+            <div class="container">
+              <input type="checkbox" id="toggler" class="toggler" /> <!-- for toggling functionality. Should be at the same level as navbar-menu -->
+              <div class="navbar-brand"> <!-- left side of bulma navbar -->
+                <p class="navbar-item">MyBlog</p>
+                <label for="toggler" role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+                  <span aria-hidden="true"></span>
+                  <span aria-hidden="true"></span>
+                  <span aria-hidden="true"></span>
+                </label>
+              </div> <!-- end of left side of bulma navbar -->
+              <div id="navbarBasicExample" class="navbar-menu" ><!-- dont shown on mobile -->
+                <div class="navbar-end"><!-- left on big screen -->
+
+                  <%= link_to "Home", root_path, class:"navbar-item" %>
+                  <%= link_to "Create Post", new_post_path, class:"navbar-item" %>
+
+             </div><!-- end navbar-start-->
             </div>
-            <div class="navbar-menu" id="navbarMenuHeroA">
-              <div class="navbar-end">
-                <a href="/" class="navbar-item">Home</a>
-                <a href="/posts/new" class="navbar-item">Create Post</a>
-              </div>
-            </div>
-          </div>
-        </nav>
-      </div>
-      <div class="hero-body">
-        <div class="container has-text-centered">
-          <h1 class="title">
-            <%= yield :page_title %>
-          </h1>
+          </nav>
         </div>
-      </div>
-    </section>
+        <div class="hero-body">
+          <div class="container has-text-centered">
+            <h1 class="title">
+              <%= yield :page_title %>
+            </h1>
+          </div>
+        </div>
+      </section>
 
     <%= yield %>
   </body>
