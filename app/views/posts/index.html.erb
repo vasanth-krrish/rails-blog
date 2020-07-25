@@ -1,5 +1,5 @@
 <% if user_signed_in? %>
-	<% content_for :page_title, "Home" %>
+	<% content_for :page_title, "Welcome back, " << current_user.name %>
 <% else %>
 	<% content_for :page_title do %>
 		<p>
