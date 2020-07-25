@@ -6,7 +6,7 @@
       <!-- Left Side -->
       <div class="level-left">
         <p class="level-item">
-          <em>Posted <%= time_ago_in_words(@post.created_at) %> ago by <strong><%= @post.user.username.downcase %></strong></em>
+          <em>Posted <%= time_ago_in_words(@post.created_at) %> ago by <strong><%= link_to profile_path(@post.user.username) do%><%= @post.user.username.downcase %><% end %></strong></em>
         </p>
       </div>
       <!-- Right Side -->
