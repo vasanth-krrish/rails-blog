@@ -1,4 +1,4 @@
-<% content_for :page_title, @user.name.upcase %>
+<% content_for :page_title, @user.name %>
 <br>
 <div class="container">
     <div class="card">
@@ -37,6 +37,10 @@
       </div>
   </div> <br>
 
+  <% if current_user.has_role?(:admin) %>
+    <%= render 'users' %>
+  <% end %>
+
   <% @posts.each do |post| %>
     <div class="card">
         <div class="card-content">
@@ -57,11 +61,4 @@
     <br>
   <% end %><br>
 
-</div>
-
-
-<div class="section">
-	<div class="container">
-
-	</div>
 </div>

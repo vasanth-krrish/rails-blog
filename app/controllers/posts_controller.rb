@@ -6,6 +6,7 @@ class PostsController < ApplicationController
   def profile
     @user = User.find_by(username: params[:id])
     @posts = @user.posts.order("created_at DESC")
+    @users = User.with_role(:user)
   end
 
   def index

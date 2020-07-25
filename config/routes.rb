@@ -6,4 +6,5 @@ Rails.application.routes.draw do
   end
   root "posts#index"
   get '/profiles/:id' => 'posts#profile', as: 'profile'
+  get '/users/list' => 'posts#users', as: 'users-list'
 end

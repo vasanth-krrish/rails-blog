@@ -1,0 +1,44 @@
+
+<div class="container">
+    <p class="has-text-centered is-size-4 has-text-weight-medium ">
+      Users List
+    </p>
+    <% @users.each do |user| %>
+        <br>
+        <div class="card">
+          <div class="card-content">
+            <div class="media">
+              <div class="media-content">
+
+                <div class="content is-size-5">
+                    <strong>Name </strong>&emsp;&emsp;&emsp;<%= user.name %><br>
+                    <strong>Username </strong>&emsp;<%= user.username %><br>
+                    <strong>Email </strong>&emsp;&emsp;&emsp;&nbsp;<%= user.email %><br>
+                    <hr />
+                    <div class="level">
+                      <div class="level-item">
+                        <div>
+                          <p class="title is-6"><%= user.posts.count  %></p>
+                          <p class="heading">Posts</p>
+                        </div>
+                      </div>
+                      <div class="level-item">
+                        <div>
+                          <p class="title is-6"><%= user.comments.count  %></p>
+                          <p class="heading">Comments</p>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+
+              </div>
+              <% if user == current_user || user_signed_in? && current_user.has_role?(:admin) %>
+                <%= link_to edit_user_registration_path(user), class: "button is-info" do %>
+                  <i class="fa fa-pencil" aria-hidden="true"></i> Edit
+                <% end %>
+              <% end %>
+            </div>
+          </div>
+        </div> <br>
+    <% end %>
+</div>
