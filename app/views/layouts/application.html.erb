@@ -7,6 +7,7 @@
 
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style media="screen">
       /* We don't need checkbox to be displayed in order for it to work */
       .toggler {
@@ -60,7 +61,14 @@
                 <div class="navbar-end"><!-- left on big screen -->
 
                   <%= link_to "Home", root_path, class:"navbar-item" %>
-                  <%= link_to "Create Post", new_post_path, class:"navbar-item" %>
+                  <% if user_signed_in? %>
+                    <%= link_to current_user.username, profile_path(current_user.username), class: "navbar-item" %>
+                    <%= link_to "Create Post", new_post_path, class:"navbar-item" %>
+                    <%= link_to 'Logout', destroy_user_session_path, method: :delete, data: {confirm: "Are you sure?"}, class:"navbar-item" %>
+                  <% else %>
+                    <%= link_to "Sign up", new_user_registration_path, class:"navbar-item" %>
+                    <%= link_to "Sign in", new_user_session_path, class:"navbar-item" %>
+                  <% end %>
 
              </div><!-- end navbar-start-->
             </div>

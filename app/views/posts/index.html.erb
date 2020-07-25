@@ -1,4 +1,14 @@
-<% content_for :page_title, "Home" %>
+<% if user_signed_in? %>
+	<% content_for :page_title, "Home" %>
+<% else %>
+	<% content_for :page_title do %>
+		<p>
+			<%= link_to new_user_session_path, style: 'color: white;' do %>
+				Welcome back, login here to continue...
+			<% end %>
+		</p>
+	<% end %>
+<% end %>
 
 <div class="section">
 	<div class="container">
@@ -12,6 +22,7 @@
 						</div>
 						<div class="content" style="text-align:justify;">
 							<%= truncate(post.content, length: 500) %>
+							<p><em><small>Posted <%= time_ago_in_words(post.created_at) %> ago by <%= link_to profile_path(post.user.username) do%><%= post.user.username.downcase %><% end %></small></em></p>
 						</div>
 						<div class="comment-count">
 							<span class="tag is-rounded"><%= post.comments.count %> comments</span>

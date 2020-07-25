@@ -1,0 +1,67 @@
+<% content_for :page_title, @user.name.upcase %>
+<br>
+<div class="container">
+    <div class="card">
+      <div class="card-content">
+        <div class="media">
+          <div class="media-content">
+
+            <div class="content is-size-5">
+                <strong>Name </strong>&emsp;&emsp;&emsp;<%= @user.name %><br>
+                <strong>Username </strong>&emsp;<%= @user.username %><br>
+                <strong>Email </strong>&emsp;&emsp;&emsp;&nbsp;<%= @user.email %><br>
+                <hr />
+                <div class="level">
+                  <div class="level-item">
+                    <div>
+                      <p class="title is-6"><%= @user.posts.count  %></p>
+                      <p class="heading">Posts</p>
+                    </div>
+                  </div>
+                  <div class="level-item">
+                    <div>
+                      <p class="title is-6"><%= @user.comments.count  %></p>
+                      <p class="heading">Comments</p>
+                    </div>
+                  </div>
+                </div>
+            </div>
+
+          </div>
+          <% if @user == current_user || user_signed_in? && current_user.has_role?(:admin) %>
+            <%= link_to edit_user_registration_path(@user), class: "button is-info" do %>
+              <i class="fa fa-pencil" aria-hidden="true"></i> Edit
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+  </div> <br>
+
+  <% @posts.each do |post| %>
+    <div class="card">
+        <div class="card-content">
+          <div class="media">
+            <div class="media-content">
+              <p class="title is-4"><%= link_to post.title, post %></p>
+            </div>
+          </div>
+          <div class="content" style="text-align:justify;">
+            <%= truncate(post.content, length: 500) %>
+            <p><em><small>Posted <%= time_ago_in_words(post.created_at) %> ago by <%= post.user.username.downcase %></small></em></p>
+          </div>
+          <div class="comment-count">
+            <span class="tag is-rounded"><%= post.comments.count %> comments</span>
+          </div>
+        </div>
+    </div>
+    <br>
+  <% end %><br>
+
+</div>
+
+
+<div class="section">
+	<div class="container">
+
+	</div>
+</div>
